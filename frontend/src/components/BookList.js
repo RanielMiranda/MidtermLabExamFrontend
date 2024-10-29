@@ -33,7 +33,7 @@ const BookList = () => {
     };
 
     const handleView = (id) => {
-        navigate(`/books/${id}`);
+        navigate(`/view/${id}`);
     };
 
     const handleEdit = (id) => {
