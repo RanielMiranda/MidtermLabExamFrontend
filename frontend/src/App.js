@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './components/Home.js';
-import Add from './components/Add.js';
-import Edit from './components/Edit.js';
-import View from './components/View.js';  
+import Home from './Pages/Home.js';
+import Add from './Pages/Add.js';
+import Edit from './Pages/Edit.js';
+import View from './Pages/View.js';  
 import './App.css';
 import './components/ButtonStyles.css';
+
 
 function App() {
   const [books, setBooks] = useState([]); // State to hold the list of books

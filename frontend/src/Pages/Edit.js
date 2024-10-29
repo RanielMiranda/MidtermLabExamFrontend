@@ -1,10 +1,10 @@
+//Edit.js
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faEdit } from '@fortawesome/free-solid-svg-icons';
+import EditSuccessModal from '../components/EditSuccessModal';
 import axios from 'axios';
-import DeleteSuccessModal from './DeleteSuccessModal'; // Import the DeleteSuccessModal component
-import EditSuccessModal from './EditSuccessModal';
 
 function Edit() {
     const { id } = useParams();
@@ -12,8 +12,7 @@ function Edit() {
     const [originalValues, setOriginalValues] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    const [showEditSuccessModal, setShowEditSuccessModal] = useState(false); // Renamed state for update modal visibility
-    const [showDeleteModal, setShowDeleteModal] = useState(false); // State for delete modal visibility
+    const [showEditSuccessModal, setShowEditSuccessModal] = useState(false); 
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -48,27 +47,11 @@ function Edit() {
             });
     };
 
-    const handleDelete = () => {
-        axios.delete(`http://127.0.0.1:8000/api/books/${id}`)
-            .then(response => {
-                console.log('Book deleted:', response.data);
-                setShowDeleteModal(true); // Show the delete success modal
-            })
-            .catch(error => {
-                console.error('Error deleting book:', error);
-                setError('Failed to delete the book. Please try again.');
-            });
-    };
-
     const handleCloseEditSuccessModal = () => {
         setShowEditSuccessModal(false);
         navigate('/');
     };
 
-    const handleCloseDeleteModal = () => {
-        setShowDeleteModal(false);
-        navigate('/');
-    };
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
@@ -136,20 +119,15 @@ function Edit() {
                     </div>
                     <div className="d-flex justify-content-center mt-2">
                         <button type="submit" className="button button-edit mt-2">Update Book</button>
-                        <button type="button" className="button button-edit button-delete mt-2" onClick={handleDelete}>Delete Book</button>
                     </div>
                 </form>
             </div>
+
             <EditSuccessModal 
                 show={showEditSuccessModal}  // Updated to match the new state variable name
                 originalValues={originalValues} 
                 newValues={book} 
                 handleClose={handleCloseEditSuccessModal}  // Updated to match the new close function
-            />
-            <DeleteSuccessModal 
-                show={showDeleteModal} 
-                title={book.title} 
-                handleClose={handleCloseDeleteModal} 
             />
             <div className="d-flex justify-content-around mt-2">
                 <Link to="/" className="button mt-2">
@@ -161,3 +139,4 @@ function Edit() {
 }
 
 export default Edit;
+
