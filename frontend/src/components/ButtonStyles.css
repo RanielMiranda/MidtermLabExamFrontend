@@ -1,0 +1,30 @@
+/* ButtonStyles.css */
+.button {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+.button-delete {
+    background-color: #f44336; /* Red */
+}
+
+.button-delete:hover {
+    background-color: #e53935; /* Darker red on hover */
+}
+
+.button-edit {
+    width: 140px;
+}
