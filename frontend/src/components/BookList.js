@@ -3,14 +3,16 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faTrash, faEdit, faEye } from '@fortawesome/free-solid-svg-icons';
+import DeleteSuccessModal from './DeleteSuccessModal'; // Import the modal
 
 
 const BookList = () => {
     const [books, setBooks] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [deletedBookTitle, setDeletedBookTitle] = useState('');    
     const navigate = useNavigate();
 
-    // Fetch books when component mounts or search term changes
     useEffect(() => {
         if (!searchTerm) {
             fetchBooks();
@@ -43,10 +45,17 @@ const BookList = () => {
     const handleDelete = async (id, title) => {
         try {
             await axios.delete(`http://127.0.0.1:8000/api/books/${id}`);
-            fetchBooks();
+            setDeletedBookTitle(title); 
+            setShowDeleteModal(true); 
+            fetchBooks(); 
         } catch (error) {
             console.error('Error deleting book:', error);
         }
+    };
+    
+    const handleCloseDeleteModal = () => {
+        setShowDeleteModal(false); // Close the modal
+        setDeletedBookTitle(''); // Reset the title
     };
 
     const handleSearch = (e) => {
@@ -102,6 +111,13 @@ const BookList = () => {
                     ))}
                 </tbody>
             </table>
+            if(showDeleteModal) {
+                <DeleteSuccessModal 
+                show={showDeleteModal} 
+                handleClose={handleCloseDeleteModal} 
+                deletedBookTitle={deletedBookTitle} 
+                />            
+            }
         </div>
     );
 };

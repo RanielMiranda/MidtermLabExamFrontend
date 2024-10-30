@@ -2,7 +2,7 @@
 .button {
     padding: 10px 20px;
     margin: 5px;
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50;
     color: white;
     text-align: center;
     text-decoration: none;
@@ -18,11 +18,11 @@
 }
 
 .button-delete {
-    background-color: #f44336; /* Red */
+    background-color: #f44336;
 }
 
 .button-delete:hover {
-    background-color: #e53935; /* Darker red on hover */
+    background-color: #e53935;
 }
 
 .button-edit {
